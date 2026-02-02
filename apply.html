@@ -11,6 +11,16 @@
         <h1>نموذج الانضمام</h1>
         <form id="applicationForm">
             <div class="input-group">
+                <label>الاسم بالكامل:</label>
+                <input type="text" id="name" placeholder="اكتب اسمك الثلاثي" required>
+            </div>
+
+            <div class="input-group">
+                <label>ID الديسكورد أو اليوزر:</label>
+                <input type="text" id="discord_user" placeholder="مثال: 54679255... أو @User" required>
+            </div>
+
+            <div class="input-group">
                 <label>القطاع المستهدف:</label>
                 <select id="dept" required>
                     <option value="الشرطة">الشرطة (Police)</option>
@@ -22,18 +32,74 @@
             </div>
 
             <div class="input-group">
-                <label>الاسم بالكامل:</label>
-                <input type="text" id="name" placeholder="اكتب اسمك الثلاثي" required>
-            </div>
-
-            <div class="input-group">
                 <label>العمر:</label>
                 <input type="number" id="age" min="15" required>
             </div>
 
             <div class="input-group">
                 <label>الخبرات السابقة:</label>
-                <textarea id="exp" rows="3" placeholder="هل عملت في سيرفرات أخرى؟" required></textarea>
+                <textarea id="exp" rows="3" placeholder="اكتب خبراتك هنا..." required></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn">إرسال التقديم</button>
+        </form>
+    </div>
+
+    <script>
+    document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.innerText = 'جاري الإرسال...';
+        btn.disabled = true;
+
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467925594208731372/PNpBqBVTW1aWE-C_g_usILqXKEpP2wzodUE3lqUjeuAL3Nbzhrq75NhCvNa8Hohgxtdn';
+
+        // تجميع البيانات من الخانات
+        const name = document.getElementById('name').value;
+        const discordUser = document.getElementById('discord_user').value;
+        const dept = document.getElementById('dept').value;
+        const age = document.getElementById('age').value;
+        const exp = document.getElementById('exp').value;
+
+        // تجهيز الرسالة بشكل احترافي للديسكورد
+        const data = {
+            embeds: [{
+                title: "📩 طلب تقديم جديد للمواطنة",
+                color: 15158332, // لون أحمر
+                fields: [
+                    { name: "👤 الاسم", value: name, inline: true },
+                    { name: "🆔 الـ ID / اليوزر", value: discordUser, inline: true },
+                    { name: "🏢 القطاع", value: dept, inline: true },
+                    { name: "🎂 العمر", value: age, inline: true },
+                    { name: "📜 الخبرة", value: exp }
+                ],
+                footer: { text: "Future City System" },
+                timestamp: new Date()
+            }]
+        };
+
+        try {
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert('✅ تم إرسال تقديمك بنجاح!');
+                window.location.href = 'index.html';
+            } else {
+                throw new Error();
+            }
+        } catch (err) {
+            alert('❌ فشل الإرسال، تأكد من اتصالك بالإنترنت.');
+            btn.innerText = 'إرسال التقديم';
+            btn.disabled = false;
+        }
+    });
+    </script>
+</body>
+</html>
             </div>
 
             <div class="input-group">
