@@ -7,84 +7,112 @@
 }
 
 body {
-    background: #0a0a0a;
-    color: #fff;
+    background: #0d0d0d;
+    color: #ffffff;
     font-family: 'Cairo', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* يبدأ من فوق عشان لو الصفحة طويلة */
+    padding: 20px 10px;
     min-height: 100vh;
-    padding: 20px;
 }
 
 .main-wrapper {
     width: 100%;
-    max-width: 450px;
-    background: #151515;
-    border-radius: 15px;
+    max-width: 480px;
+    background: #161616;
+    border-radius: 20px;
     padding: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    border: 1px solid #333;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+    border: 1px solid #2a2a2a;
 }
 
-header { text-align: center; margin-bottom: 20px; }
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-.mini-logo {
-    width: 80px;
-    height: 80px;
+.server-logo {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    border: 2px solid #e74c3c;
-    margin-bottom: 10px;
+    border: 3px solid #e74c3c;
+    margin-bottom: 15px;
+    object-fit: cover;
 }
 
-h1 { font-size: 1.4rem; color: #e74c3c; margin-bottom: 10px; text-align: center; }
+h1 {
+    font-size: 1.6rem;
+    color: #e74c3c;
+    margin-bottom: 5px;
+}
 
-/* تنسيق القوانين (Index) */
+.accordion { margin-bottom: 20px; }
+
 details {
-    background: #1d1d1d;
-    margin-bottom: 8px;
-    border-radius: 8px;
+    background: #1f1f1f;
+    margin-bottom: 12px;
+    border-radius: 10px;
     border: 1px solid #333;
     overflow: hidden;
 }
 
 summary {
-    padding: 12px;
+    padding: 15px;
     cursor: pointer;
-    background: #222;
+    background: #262626;
     color: #e74c3c;
     font-weight: bold;
     list-style: none;
+    outline: none;
 }
 
-ul { padding: 10px 25px; list-style-type: decimal; }
-ul li { font-size: 0.85rem; color: #ccc; margin-bottom: 5px; }
+ul {
+    padding: 15px 30px;
+    list-style-type: decimal;
+}
 
-/* تنسيق الاستمارة (Apply) */
-.input-group { margin-bottom: 15px; text-align: right; }
-label { display: block; margin-bottom: 5px; color: #e74c3c; font-size: 0.9rem; font-weight: bold; }
+ul li {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.input-group {
+    margin-bottom: 18px;
+    text-align: right;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #e74c3c;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
 input, select, textarea {
     width: 100%;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 12px;
+    border-radius: 8px;
     border: 1px solid #333;
-    background: #222;
+    background: #0f0f0f;
     color: #fff;
-    outline: none;
     font-family: 'Cairo', sans-serif;
+    outline: none;
 }
 
-.apply-btn {
+.btn {
     display: block;
     width: 100%;
     background: linear-gradient(45deg, #c0392b, #e74c3c);
     color: white;
     text-decoration: none;
     text-align: center;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 15px;
+    border-radius: 12px;
     font-weight: bold;
     border: none;
     cursor: pointer;
-    margin-top: 10px;
 }
+
