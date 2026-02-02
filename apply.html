@@ -1,0 +1,50 @@
+<script>
+document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // رابط الـ Webhook اللي جبته من الديسكورد
+    const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467925594208731372/PNpBqBVTW1aWE-C_g_usILqXKEpP2wzodUE3lqUjeuAL3Nbzhrq75NhCvNa8Hohgxtdn';
+
+    const data = {
+        dept: document.getElementById('dept').value,
+        name: document.getElementById('name').value,
+        age: document.getElementById('age').value,
+        exp: document.getElementById('exp').value,
+        reason: document.getElementById('reason').value
+    };
+
+    // تجهيز شكل الرسالة (Embed)
+    const embedData = {
+        embeds: [{
+            title: "🔔 تقديم جديد - Future CFW",
+            color: 0x00d4ff,
+            fields: [
+                { name: "🏢 القطاع", value: data.dept, inline: false },
+                { name: "👤 الاسم", value: data.name, inline: true },
+                { name: "🎂 العمر", value: data.age, inline: true },
+                { name: "📜 الخبرات", value: data.exp },
+                { name: "❓ السبب", value: data.reason }
+            ],
+            footer: { text: "نظام توظيف مدينة فيوتشر" },
+            timestamp: new Date()
+        }]
+    };
+
+    try {
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(embedData)
+        });
+
+        if (response.ok) {
+            alert('✅ تم إرسال تقديمك بنجاح!');
+        } else {
+            alert('❌ فشل الإرسال، تأكد من إعدادات الويب هوك.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('❌ حدث خطأ في الاتصال.');
+    }
+});
+</script>

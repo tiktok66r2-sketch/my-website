@@ -1,0 +1,109 @@
+/* الألوان والخطوط */
+:root {
+    --primary-cyan: #00d4ff; /* أزرق نيون */
+    --bg-dark: #080808;      /* خلفية سودة */
+    --card-bg: rgba(255, 255, 255, 0.03);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-dark);
+    background-image: radial-gradient(circle at top, #1a1a1a 0%, #080808 100%);
+    color: #fff;
+    margin: 0;
+    direction: rtl; /* تنسيق عربي */
+    font-family: 'Tajawal', sans-serif;
+    line-height: 1.6;
+}
+
+/* الهيدر العلوي */
+header {
+    height: 35vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* التعديل هنا: شيلنا الصورة وخليناها لون غامق متدرج شيك */
+    background: linear-gradient(to bottom, #111 0%, #080808 100%);
+    border-bottom: 4px solid var(--primary-cyan);
+}
+
+
+header h1 {
+    font-family: 'Cairo', sans-serif;
+    font-size: 3.5rem;
+    color: var(--primary-cyan);
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    margin: 0;
+}
+
+/* الحاوية الرئيسية */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 0;
+}
+
+/* صناديق القوانين والتقديم */
+.category-box {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
+}
+
+.category-box:hover {
+    border-color: var(--primary-cyan);
+    transform: translateX(-5px);
+}
+
+.section-title {
+    font-family: 'Almarai', sans-serif;
+    font-size: 1.8rem;
+    border-right: 5px solid var(--primary-cyan);
+    padding-right: 15px;
+    margin-bottom: 30px;
+}
+
+/* الأزرار */
+.btn-main {
+    display: inline-block;
+    background: linear-gradient(45deg, #00d4ff, #005fad);
+    color: #fff !important;
+    padding: 15px 45px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
+    transition: 0.3s;
+}
+
+.btn-main:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
+}
+
+/* القوائم */
+.rules-list { list-style: none; padding: 0; }
+.rules-list li {
+    padding: 10px 25px 10px 0;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+.rules-list li::before {
+    content: "⚡";
+    position: absolute;
+    right: 0;
+    color: var(--primary-cyan);
+}
+
+footer { text-align: center; padding: 30px; color: #444; }
