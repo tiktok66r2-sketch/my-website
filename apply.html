@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تقديم - Future City</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,98 +15,56 @@
 
         <form id="applicationForm">
             <div class="input-group">
-                <label>الاسم الثلاثي:</label>
-                <input type="text" id="name" placeholder="اكتب اسمك الحقيقي" required>
+                <label>الاسم (رول):</label>
+                <input type="text" id="name" required>
             </div>
-
             <div class="input-group">
-                <label>ID الديسكورد أو اليوزر:</label>
-                <input type="text" id="discord_user" placeholder="مثال: 54679255..." required>
+                <label>ID الديسكورد:</label>
+                <input type="text" id="discord_user" required>
             </div>
-
             <div class="input-group">
-                <label>القطاع المستهدف:</label>
+                <label>القطاع:</label>
                 <select id="dept" required>
-                    <option value="" disabled selected>اختر القطاع...</option>
-                    <option value="الشرطة">الشرطة (Police)</option>
-                    <option value="الإسعاف">الإسعاف (EMS)</option>
-                    <option value="الميكانيكا">الميكانيكا (Mechanic)</option>
-                    <option value="الإعلام">الإعلام (Media)</option>
-                    <option value="العدل">العدل (Justice)</option>
+                    <option value="الشرطة">الشرطة</option>
+                    <option value="الإسعاف">الإسعاف</option>
+                    <option value="العدل">العدل</option>
                 </select>
             </div>
-
             <div class="input-group">
                 <label>العمر:</label>
-                <input type="number" id="age" min="15" required>
+                <input type="number" id="age" required>
             </div>
-
             <div class="input-group">
-                <label>الخبرات السابقة:</label>
-                <textarea id="exp" rows="3" placeholder="اذكر خبراتك..." required></textarea>
+                <label>الخبرات:</label>
+                <textarea id="exp" rows="3" required></textarea>
             </div>
-
-            <button type="submit" id="submitBtn" class="apply-btn">إرسال التقديم</button>
+            <button type="submit" id="submitBtn" class="apply-btn">إرسال</button>
         </form>
     </div>
 
     <script>
     document.getElementById('applicationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        btn.innerText = 'جاري الإرسال...';
-        btn.disabled = true;
-
         const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467925594208731372/PNpBqBVTW1aWE-C_g_usILqXKEpP2wzodUE3lqUjeuAL3Nbzhrq75NhCvNa8Hohgxtdn';
-
-        const payload = {
+        const data = {
             embeds: [{
-                title: "🆕 طلب تقديم جديد",
+                title: "🆕 تقديم جديد",
                 color: 15158332,
                 fields: [
                     { name: "👤 الاسم", value: document.getElementById('name').value, inline: true },
-                    { name: "🆔 الـ ID / اليوزر", value: document.getElementById('discord_user').value, inline: true },
+                    { name: "🆔 الـ ID", value: document.getElementById('discord_user').value, inline: true },
                     { name: "🏢 القطاع", value: document.getElementById('dept').value, inline: true },
-                    { name: "🎂 العمر", value: document.getElementById('age').value, inline: true },
                     { name: "📜 الخبرة", value: document.getElementById('exp').value }
-                ],
-                footer: { text: "Future City RP" },
-                timestamp: new Date()
+                ]
             }]
         };
-
-        try {
-            await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            alert('✅ تم الإرسال بنجاح!');
-            window.location.href = 'index.html';
-        } catch (err) {
-            alert('❌ فشل الإرسال');
-            btn.innerText = 'إرسال التقديم';
-            btn.disabled = false;
-        }
+        await fetch(WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+        alert('تم الإرسال!');
+        window.location.href = 'index.html';
     });
     </script>
 </body>
 </html>
-            </div>
-
-            <div class="input-group">
-                <label>الخبرات السابقة:</label>
-                <textarea id="exp" rows="3" placeholder="اكتب خبراتك هنا..." required></textarea>
-            </div>
-
-            <button type="submit" id="submitBtn">إرسال التقديم</button>
-        </form>
-    </div>
-
-    <script>
-    document.getElementById('applicationForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        btn.innerText = 'جاري الإرسال...';
-        btn.disabled = true;
-
-        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467925594208731372/PNpBqBVTW1aWE-C_g_usILqXKEpP2wzodUE3lqUjeuAL3Nbzhrq75NhCvNa8Hohgxtdn';
 
         // تجميع البيانات من الخانات
         const name = document.getElementById('name').value;
