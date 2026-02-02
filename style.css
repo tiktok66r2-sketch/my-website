@@ -46,6 +46,7 @@ h1 {
     margin-bottom: 5px;
 }
 
+/* تنسيق القوانين (Index) */
 .accordion { margin-bottom: 20px; }
 
 details {
@@ -64,7 +65,10 @@ summary {
     font-weight: bold;
     list-style: none;
     outline: none;
+    transition: 0.3s;
 }
+
+summary:hover { background: #333; }
 
 ul {
     padding: 15px 30px;
@@ -76,8 +80,10 @@ ul li {
     color: #ccc;
     margin-bottom: 8px;
     line-height: 1.6;
+    text-align: right;
 }
 
+/* تنسيق الاستمارة (Apply) */
 .input-group {
     margin-bottom: 18px;
     text-align: right;
@@ -100,6 +106,12 @@ input, select, textarea {
     color: #fff;
     font-family: 'Cairo', sans-serif;
     outline: none;
+    transition: 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #e74c3c;
+    box-shadow: 0 0 8px rgba(231, 76, 60, 0.2);
 }
 
 .btn {
@@ -112,7 +124,13 @@ input, select, textarea {
     padding: 15px;
     border-radius: 12px;
     font-weight: bold;
+    font-size: 1.1rem;
     border: none;
     cursor: pointer;
+    transition: 0.3s;
 }
 
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
