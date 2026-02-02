@@ -1,109 +1,68 @@
-/* الألوان والخطوط */
-:root {
-    --primary-cyan: #00d4ff; /* أزرق نيون */
-    --bg-dark: #080808;      /* خلفية سودة */
-    --card-bg: rgba(255, 255, 255, 0.03);
-}
-
-* { box-sizing: border-box; }
-
 body {
-    background-color: var(--bg-dark);
-    background-image: radial-gradient(circle at top, #1a1a1a 0%, #080808 100%);
-    color: #fff;
-    margin: 0;
-    direction: rtl; /* تنسيق عربي */
-    font-family: 'Tajawal', sans-serif;
-    line-height: 1.6;
-}
-
-/* الهيدر العلوي */
-header {
-    height: 35vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    /* التعديل هنا: شيلنا الصورة وخليناها لون غامق متدرج شيك */
-    background: linear-gradient(to bottom, #111 0%, #080808 100%);
-    border-bottom: 4px solid var(--primary-cyan);
-}
-
-
-header h1 {
+    background: #0a0a0a;
+    color: #eee;
     font-family: 'Cairo', sans-serif;
-    font-size: 3.5rem;
-    color: var(--primary-cyan);
-    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
     margin: 0;
+    padding: 20px;
 }
 
-/* الحاوية الرئيسية */
-.container {
-    width: 90%;
-    max-width: 900px;
+.container.wide {
+    max-width: 800px;
     margin: auto;
-    padding: 40px 0;
+    background: #151515;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
 
-/* صناديق القوانين والتقديم */
-.category-box {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: 0.3s;
-}
+h1 { color: #e74c3c; text-align: center; font-size: 2.5em; }
 
-.category-box:hover {
-    border-color: var(--primary-cyan);
-    transform: translateX(-5px);
-}
-
-.section-title {
-    font-family: 'Almarai', sans-serif;
-    font-size: 1.8rem;
-    border-right: 5px solid var(--primary-cyan);
-    padding-right: 15px;
-    margin-bottom: 30px;
-}
-
-/* الأزرار */
-.btn-main {
-    display: inline-block;
-    background: linear-gradient(45deg, #00d4ff, #005fad);
-    color: #fff !important;
-    padding: 15px 45px;
+.rules-section {
+    background: #1d1d1d;
+    border-right: 5px solid #555;
+    margin-bottom: 25px;
+    padding: 20px;
     border-radius: 10px;
-    text-decoration: none;
-    font-family: 'Cairo', sans-serif;
-    font-weight: 900;
-    font-size: 1.2rem;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
     transition: 0.3s;
 }
 
-.btn-main:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
+.rules-section h3 { margin-top: 0; font-size: 1.4em; }
+
+/* ألوان الأقسام */
+.police { border-right-color: #2980b9; } /* أزرق */
+.ems { border-right-color: #27ae60; }    /* أخضر */
+.media { border-right-color: #f1c40f; }  /* أصفر */
+.justice { border-right-color: #9b59b6; } /* بنفسجي */
+
+ul { padding-right: 20px; line-height: 1.8; }
+ul li { margin-bottom: 8px; font-size: 0.95em; color: #ccc; }
+
+.action-box {
+    text-align: center;
+    border-top: 2px solid #333;
+    padding-top: 20px;
+    margin-top: 30px;
 }
 
-/* القوائم */
-.rules-list { list-style: none; padding: 0; }
-.rules-list li {
-    padding: 10px 25px 10px 0;
-    position: relative;
-    border-bottom: 1px solid rgba(255,255,255,0.02);
-}
-.rules-list li::before {
-    content: "⚡";
-    position: absolute;
-    right: 0;
-    color: var(--primary-cyan);
+.btn {
+    background: #e74c3c;
+    color: white;
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: 0.4s;
 }
 
-footer { text-align: center; padding: 30px; color: #444; }
+.btn:hover { background: #ff4d4d; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4); }
+
+.server-logo {
+    display: block;
+    margin: 0 auto 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #e74c3c;
+}
