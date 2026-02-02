@@ -9,44 +9,44 @@
 <body>
     <div class="main-wrapper">
         <header>
-            <h1 style="text-align: center;">نموذج التقديم</h1>
-            <p style="color: #888; font-size: 0.9rem; margin-bottom: 20px; text-align: center;">يرجى كتابة البيانات بدقة لضمان قبولك</p>
+            <h1>طلب انضمام</h1>
+            <p style="color: #888; font-size: 0.9rem; text-align: center;">يرجى ملء البيانات بدقة</p>
         </header>
 
         <form id="applyForm">
             <div class="input-group">
-                <label>الاسم:</label>
-                <input type="text" id="name" placeholder="اكتب اسمك بالرول" required>
+                <label>الاسم الثلاثي:</label>
+                <input type="text" id="name" placeholder="اكتب اسمك الحقيقي" required>
             </div>
 
             <div class="input-group">
-                <label>ID الحساب (Discord ID):</label>
-                <input type="text" id="discord_id" placeholder="مثال:1954245 .." required>
+                <label>ID الديسكورد (أو اليوزر):</label>
+                <input type="text" id="discord_id" placeholder="مثال: 54679255..." required>
             </div>
 
             <div class="input-group">
-                <label>القطاع المطلوب:</label>
+                <label>القطاع المستهدف:</label>
                 <select id="dept" required>
                     <option value="" disabled selected>اختر القطاع...</option>
-                    <option value="الشرطة">الشرطة (Police)</option>
-                    <option value="الإسعاف">الإسعاف (EMS)</option>
-                    <option value="الميكانيكا">الميكانيكا (Mechanic)</option>
-                    <option value="الإعلام">الإعلام (Media)</option>
-                    <option value="العدل">العدل (Justice)</option>
+                    <option value="الشرطة">الشرطة</option>
+                    <option value="الإسعاف">الإسعاف</option>
+                    <option value="الميكانيكا">الميكانيكا</option>
+                    <option value="الإعلام">الإعلام</option>
+                    <option value="العدل">العدل</option>
                 </select>
             </div>
 
             <div class="input-group">
                 <label>العمر:</label>
-                <input type="number" id="age" min="15" placeholder="أقل عمر للتقديم 15 سنة" required>
+                <input type="number" id="age" required>
             </div>
 
             <div class="input-group">
                 <label>الخبرات السابقة:</label>
-                <textarea id="exp" rows="3" placeholder="اذكر السيرفرات السابقة أو الرتب التي حصلت عليها..." required></textarea>
+                <textarea id="exp" rows="3" placeholder="اذكر السيرفرات السابقة..." required></textarea>
             </div>
 
-            <button type="submit" id="submitBtn" class="btn">إرسال الطلب للإدارة</button>
+            <button type="submit" id="submitBtn" class="btn">إرسال الطلب</button>
         </form>
     </div>
 
@@ -62,7 +62,6 @@
             const payload = {
                 embeds: [{
                     title: "🆕 تقديم جديد للمواطنة - Future City",
-                    description: "وصلنا طلب جديد للمراجعة من قبل الإدارة.",
                     color: 15158332,
                     fields: [
                         { name: "👤 الاسم", value: document.getElementById('name').value, inline: true },
@@ -71,31 +70,25 @@
                         { name: "🎂 العمر", value: document.getElementById('age').value, inline: true },
                         { name: "📜 الخبرة", value: document.getElementById('exp').value }
                     ],
-                    footer: { text: "Future City RP - Application System" },
+                    footer: { text: "نظام التقديم الآلي" },
                     timestamp: new Date()
                 }]
             };
 
             try {
-                const response = await fetch(WEBHOOK_URL, {
+                await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-
-                if (response.ok) {
-                    alert('✅ تم إرسال تقديمك بنجاح! سيتم مراجعته من قبل الإدارة.');
-                    window.location.href = 'index.html';
-                } else {
-                    throw new Error();
-                }
+                alert('✅ تم إرسال تقديمك بنجاح!');
+                window.location.href = 'index.html';
             } catch (err) {
-                alert('❌ فشل الإرسال، تأكد من اتصال الإنترنت أو رابط الويب هوك.');
-                btn.innerText = 'إرسال التقديم';
+                alert('❌ فشل الإرسال');
+                btn.innerText = 'إرسال الطلب';
                 btn.disabled = false;
             }
         });
     </script>
 </body>
 </html>
-
