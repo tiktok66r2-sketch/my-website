@@ -9,165 +9,93 @@
 <body>
     <div class="main-wrapper">
         <header>
-            <img src="https://i.thteam.me/jvwEOavcva.jpg" alt="Logo" class="mini-logo">
-            <h1>نموذج التقديم</h1>
+            <h1 style="text-align: center;">نموذج التقديم</h1>
+            <p style="color: #888; font-size: 0.9rem; margin-bottom: 20px; text-align: center;">يرجى كتابة البيانات بدقة لضمان قبولك</p>
         </header>
 
-        <form id="applicationForm">
+        <form id="applyForm">
             <div class="input-group">
-                <label>الاسم (رول):</label>
-                <input type="text" id="name" required>
+                <label>الاسم الثلاثي:</label>
+                <input type="text" id="name" placeholder="اكتب اسمك الحقيقي" required>
             </div>
+
             <div class="input-group">
-                <label>ID الديسكورد:</label>
-                <input type="text" id="discord_user" required>
+                <label>ID الحساب (Discord ID):</label>
+                <input type="text" id="discord_id" placeholder="مثال: 54679255..." required>
             </div>
+
             <div class="input-group">
-                <label>القطاع:</label>
+                <label>القطاع المطلوب:</label>
                 <select id="dept" required>
-                    <option value="الشرطة">الشرطة</option>
-                    <option value="الإسعاف">الإسعاف</option>
-                    <option value="العدل">العدل</option>
+                    <option value="" disabled selected>اختر القطاع...</option>
+                    <option value="الشرطة">الشرطة (Police)</option>
+                    <option value="الإسعاف">الإسعاف (EMS)</option>
+                    <option value="الميكانيكا">الميكانيكا (Mechanic)</option>
+                    <option value="الإعلام">الإعلام (Media)</option>
+                    <option value="العدل">العدل (Justice)</option>
                 </select>
             </div>
+
             <div class="input-group">
                 <label>العمر:</label>
-                <input type="number" id="age" required>
+                <input type="number" id="age" min="15" placeholder="أقل عمر للتقديم 15 سنة" required>
             </div>
+
             <div class="input-group">
-                <label>الخبرات:</label>
-                <textarea id="exp" rows="3" required></textarea>
+                <label>الخبرات السابقة:</label>
+                <textarea id="exp" rows="3" placeholder="اذكر السيرفرات السابقة أو الرتب التي حصلت عليها..." required></textarea>
             </div>
-            <button type="submit" id="submitBtn" class="apply-btn">إرسال</button>
+
+            <button type="submit" id="submitBtn" class="btn">إرسال الطلب للإدارة</button>
         </form>
     </div>
 
     <script>
-    document.getElementById('applicationForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467925594208731372/PNpBqBVTW1aWE-C_g_usILqXKEpP2wzodUE3lqUjeuAL3Nbzhrq75NhCvNa8Hohgxtdn';
-        const data = {
-            embeds: [{
-                title: "🆕 تقديم جديد",
-                color: 15158332,
-                fields: [
-                    { name: "👤 الاسم", value: document.getElementById('name').value, inline: true },
-                    { name: "🆔 الـ ID", value: document.getElementById('discord_user').value, inline: true },
-                    { name: "🏢 القطاع", value: document.getElementById('dept').value, inline: true },
-                    { name: "📜 الخبرة", value: document.getElementById('exp').value }
-                ]
-            }]
-        };
-        await fetch(WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
-        alert('تم الإرسال!');
-        window.location.href = 'index.html';
-    });
-    </script>
-</body>
-</html>
+        document.getElementById('applyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = 'جاري الإرسال...';
+            btn.disabled = true;
 
-        // تجميع البيانات من الخانات
-        const name = document.getElementById('name').value;
-        const discordUser = document.getElementById('discord_user').value;
-        const dept = document.getElementById('dept').value;
-        const age = document.getElementById('age').value;
-        const exp = document.getElementById('exp').value;
+            const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467925594208731372/PNpBqBVTW1aWE-C_g_usILqXKEpP2wzodUE3lqUjeuAL3Nbzhrq75NhCvNa8Hohgxtdn';
 
-        // تجهيز الرسالة بشكل احترافي للديسكورد
-        const data = {
-            embeds: [{
-                title: "📩 طلب تقديم جديد للمواطنة",
-                color: 15158332, // لون أحمر
-                fields: [
-                    { name: "👤 الاسم", value: name, inline: true },
-                    { name: "🆔 الـ ID / اليوزر", value: discordUser, inline: true },
-                    { name: "🏢 القطاع", value: dept, inline: true },
-                    { name: "🎂 العمر", value: age, inline: true },
-                    { name: "📜 الخبرة", value: exp }
-                ],
-                footer: { text: "Future City System" },
-                timestamp: new Date()
-            }]
-        };
+            const payload = {
+                embeds: [{
+                    title: "🆕 تقديم جديد للمواطنة - Future City",
+                    description: "وصلنا طلب جديد للمراجعة من قبل الإدارة.",
+                    color: 15158332,
+                    fields: [
+                        { name: "👤 الاسم", value: document.getElementById('name').value, inline: true },
+                        { name: "🆔 الـ ID", value: document.getElementById('discord_id').value, inline: true },
+                        { name: "🏢 القطاع", value: document.getElementById('dept').value, inline: true },
+                        { name: "🎂 العمر", value: document.getElementById('age').value, inline: true },
+                        { name: "📜 الخبرة", value: document.getElementById('exp').value }
+                    ],
+                    footer: { text: "Future City RP - Application System" },
+                    timestamp: new Date()
+                }]
+            };
 
-        try {
-            const response = await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
 
-            if (response.ok) {
-                alert('✅ تم إرسال تقديمك بنجاح!');
-                window.location.href = 'index.html';
-            } else {
-                throw new Error();
+                if (response.ok) {
+                    alert('✅ تم إرسال تقديمك بنجاح! سيتم مراجعته من قبل الإدارة.');
+                    window.location.href = 'index.html';
+                } else {
+                    throw new Error();
+                }
+            } catch (err) {
+                alert('❌ فشل الإرسال، تأكد من اتصال الإنترنت أو رابط الويب هوك.');
+                btn.innerText = 'إرسال التقديم';
+                btn.disabled = false;
             }
-        } catch (err) {
-            alert('❌ فشل الإرسال، تأكد من اتصالك بالإنترنت.');
-            btn.innerText = 'إرسال التقديم';
-            btn.disabled = false;
-        }
-    });
+        });
     </script>
 </body>
 </html>
-            </div>
 
-            <div class="input-group">
-                <label>لماذا نختارك؟</label>
-                <textarea id="reason" rows="3" placeholder="ماذا ستقدم للسيرفر؟" required></textarea>
-            </div>
-
-            <button type="submit" id="submitBtn">إرسال الطلب</button>
-        </form>
-    </div>
-
-    <script>
-    document.getElementById('applicationForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        btn.innerText = 'جاري الإرسال...';
-        btn.disabled = true;
-
-        // الرابط الجديد اللي إنت بعته
-        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467925594208731372/PNpBqBVTW1aWE-C_g_usILqXKEpP2wzodUE3lqUjeuAL3Nbzhrq75NhCvNa8Hohgxtdn';
-
-        const data = {
-            embeds: [{
-                title: "📩 تقديم جديد للمواطنة - Future City",
-                color: 15158332, 
-                fields: [
-                    { name: "👤 الاسم", value: document.getElementById('name').value, inline: true },
-                    { name: "🎂 العمر", value: document.getElementById('age').value, inline: true },
-                    { name: "🏢 القطاع المطلوب", value: document.getElementById('dept').value, inline: true },
-                    { name: "📜 الخبرات السابقة", value: document.getElementById('exp').value },
-                    { name: "💡 سبب التقديم", value: document.getElementById('reason').value }
-                ],
-                footer: { text: "نظام التقديم الآلي - Future City" },
-                timestamp: new Date()
-            }]
-        };
-
-        try {
-            const response = await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                alert('✅ تم إرسال تقديمك بنجاح! راجع الديسكورد الآن.');
-                window.location.href = 'index.html';
-            } else {
-                throw new Error();
-            }
-        } catch (err) {
-            alert('❌ فشل الإرسال، تأكد من صحة الرابط أو المحاولة لاحقاً.');
-            btn.innerText = 'إرسال التقديم';
-            btn.disabled = false;
-        }
-    });
-    </script>
-</body>
-</html>
