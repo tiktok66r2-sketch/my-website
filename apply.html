@@ -8,85 +8,88 @@
 </head>
 <body>
     <div class="container">
-        <h1>نموذج التقديم</h1>
+        <h1>نموذج الانضمام</h1>
         <form id="applicationForm">
-            <label>القطاع:</label>
-            <select id="dept" required>
-                <option value="الشرطة">الشرطة</option>
-                <option value="الإسعاف">الإسعاف</option>
-                <option value="الميكانيكا">الميكانيكا</option>
-                <option value="العدل">العدل</option>
-                <option value="اعلام">اعلام</option>
-                
-            </select>
+            <div class="input-group">
+                <label>القطاع المستهدف:</label>
+                <select id="dept" required>
+                    <option value="الشرطة">الشرطة (Police)</option>
+                    <option value="الإسعاف">الإسعاف (EMS)</option>
+                    <option value="الميكانيكا">الميكانيكا (Mechanic)</option>
+                    <option value="الإعلام">الإعلام (Media)</option>
+                    <option value="العدل">العدل (Justice)</option>
+                </select>
+            </div>
 
-            <label>الاسم بالكامل:</label>
-            <input type="text" id="name" required>
+            <div class="input-group">
+                <label>الاسم بالكامل:</label>
+                <input type="text" id="name" placeholder="اكتب اسمك الثلاثي" required>
+            </div>
 
-            <label>العمر:</label>
-            <input type="number" id="age" required>
+            <div class="input-group">
+                <label>العمر:</label>
+                <input type="number" id="age" min="15" required>
+            </div>
 
-            <label>الخبرات السابقة:</label>
-            <textarea id="exp" required></textarea>
+            <div class="input-group">
+                <label>الخبرات السابقة:</label>
+                <textarea id="exp" rows="3" placeholder="هل عملت في سيرفرات أخرى؟" required></textarea>
+            </div>
 
-            <label>لماذا تريد الانضمام؟</label>
-            <textarea id="reason" required></textarea>
+            <div class="input-group">
+                <label>لماذا نختارك؟</label>
+                <textarea id="reason" rows="3" placeholder="ماذا ستقدم للسيرفر؟" required></textarea>
+            </div>
 
-            <button type="submit">إرسال التقديم</button>
+            <button type="submit" id="submitBtn">إرسال الطلب</button>
         </form>
     </div>
 
     <script>
     document.getElementById('applicationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467925594208731372/PNpBqBVTW1aWE-C_g_usILqXKEpP2wzodUE3lqUjeuAL3Nbzhrq75NhCvNa8Hohgxtdn'; // تأكد إنك حطيت الرابط هنا
+        const btn = document.getElementById('submitBtn');
+        btn.innerText = 'جاري الإرسال...';
+        btn.disabled = true;
+
+        // الرابط الجديد اللي إنت بعته
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467925594208731372/PNpBqBVTW1aWE-C_g_usILqXKEpP2wzodUE3lqUjeuAL3Nbzhrq75NhCvNa8Hohgxtdn';
 
         const data = {
-            dept: document.getElementById('dept').value,
-            name: document.getElementById('name').value,
-            age: document.getElementById('age').value,
-            exp: document.getElementById('exp').value,
-            reason: document.getElementById('reason').value
-        };
-
-        const embedData = {
             embeds: [{
-                title: "🔔 تقديم جديد",
+                title: "📩 تقديم جديد للمواطنة - Future City",
+                color: 15158332, 
                 fields: [
-                    { name: "القطاع", value: data.dept },
-                    { name: "الاسم", value: data.name },
-                    { name: "العمر", value: data.age },
-                    { name: "الخبرة", value: data.exp },
-                    { name: "السبب", value: data.reason }
+                    { name: "👤 الاسم", value: document.getElementById('name').value, inline: true },
+                    { name: "🎂 العمر", value: document.getElementById('age').value, inline: true },
+                    { name: "🏢 القطاع المطلوب", value: document.getElementById('dept').value, inline: true },
+                    { name: "📜 الخبرات السابقة", value: document.getElementById('exp').value },
+                    { name: "💡 سبب التقديم", value: document.getElementById('reason').value }
                 ],
-                color: 5814783
+                footer: { text: "نظام التقديم الآلي - Future City" },
+                timestamp: new Date()
             }]
         };
 
         try {
-            await fetch(WEBHOOK_URL, {
+            const response = await fetch(WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(embedData)
+                body: JSON.stringify(data)
             });
-            alert('تم الإرسال بنجاح!');
+
+            if (response.ok) {
+                alert('✅ تم إرسال تقديمك بنجاح! راجع الديسكورد الآن.');
+                window.location.href = 'index.html';
+            } else {
+                throw new Error();
+            }
         } catch (err) {
-            alert('حدث خطأ في الإرسال');
+            alert('❌ فشل الإرسال، تأكد من صحة الرابط أو المحاولة لاحقاً.');
+            btn.innerText = 'إرسال التقديم';
+            btn.disabled = false;
         }
     });
     </script>
 </body>
-</html>            body: JSON.stringify(embedData)
-        });
-
-        if (response.ok) {
-            alert('✅ تم إرسال تقديمك بنجاح!');
-        } else {
-            alert('❌ فشل الإرسال، تأكد من إعدادات الويب هوك.');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('❌ حدث خطأ في الاتصال.');
-    }
-});
-</script>
+</html>
