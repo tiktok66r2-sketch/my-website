@@ -6,18 +6,40 @@
     <title>FUTURE CFW | القوانين</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* تنسيق إضافي للميزة الجديدة فقط */
-        details summary { list-style: none; outline: none; cursor: pointer; }
+        /* نظام الفتح السلس */
+        details summary { 
+            list-style: none; 
+            outline: none; 
+            cursor: pointer; 
+            transition: 0.3s;
+        }
         details summary::-webkit-details-marker { display: none; }
         
+        /* الأنيميشن عند فتح الكارت */
+        details[open] .law-item {
+            animation: slideDown 0.4s ease-out forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* ألوان الوهج عند فتح كل قطاع */
-        details[open].police { box-shadow: 0 0 20px rgba(0, 102, 255, 0.4); border-color: #0066ff; }
-        details[open].health { box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); border-color: #ff0000; }
-        details[open].media { box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); border-color: #ffffff; }
-        details[open].justice { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); border-color: #ffd700; }
-        details[open].gangs { box-shadow: 0 0 20px rgba(128, 0, 128, 0.4); border-color: #800080; }
-        details[open].crime { box-shadow: 0 0 20px rgba(255, 69, 0, 0.4); border-color: #ff4500; }
-        details[open].general { box-shadow: 0 0 20px rgba(0, 217, 255, 0.4); border-color: #00d9ff; }
+        details { transition: all 0.4s ease; border: 1px solid #222; }
+        details[open].police { box-shadow: 0 0 25px rgba(0, 102, 255, 0.5); border-color: #0066ff; }
+        details[open].health { box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); border-color: #ff0000; }
+        details[open].media { box-shadow: 0 0 25px rgba(255, 255, 255, 0.3); border-color: #ffffff; }
+        details[open].justice { box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); border-color: #ffd700; }
+        details[open].gangs { box-shadow: 0 0 25px rgba(128, 0, 128, 0.5); border-color: #800080; }
+        details[open].crime { box-shadow: 0 0 25px rgba(255, 69, 0, 0.5); border-color: #ff4500; }
+        details[open].general { box-shadow: 0 0 25px rgba(0, 217, 255, 0.5); border-color: #00d9ff; }
 
         details[open] .card-header { border-bottom: 1px solid currentColor; margin-bottom: 15px; }
     </style>
@@ -139,3 +161,4 @@
     </div>
 </body>
 </html>
+
