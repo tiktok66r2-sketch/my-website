@@ -22,7 +22,8 @@
 
             <div class="input-group">
                 <label>ID الحساب (Discord ID):</label>
-                <input type="text" id="discord_id" placeholder="مثال: 54679255..." required>
+                <input type="number" id="discord_id" placeholder="مثال: 54679255" 
+                       oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
             </div>
 
             <div class="input-group">
