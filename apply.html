@@ -3,50 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقديم - Future City</title>
+    <title>التقديم | FUTURE CFW</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="main-wrapper">
         <header>
-            <h1>طلب انضمام</h1>
-            <p style="color: #888; font-size: 0.9rem; text-align: center;">يرجى ملء البيانات بدقة</p>
+            <img src="https://i.thteam.me/jvwEOavcva.jpg" class="server-logo">
+            <h1>تقديم طلب انضمام</h1>
+            <p style="color:#888; margin-top:10px;">يرجى إدخال بياناتك بدقة</p>
         </header>
 
         <form id="applyForm">
             <div class="input-group">
-                <label>الاسم الثلاثي:</label>
-                <input type="text" id="name" placeholder="اكتب اسمك الحقيقي" required>
+                <label>الاسم:</label>
+                <input type="text" id="name" placeholder="اكتب اسمك الحقيقي هنا" required>
             </div>
 
             <div class="input-group">
-                <label>ID الديسكورد (أو اليوزر):</label>
+                <label>ID الحساب (Discord ID):</label>
                 <input type="text" id="discord_id" placeholder="مثال: 54679255..." required>
             </div>
 
             <div class="input-group">
-                <label>القطاع المستهدف:</label>
+                <label>القطاع المطلوب الانضمام إليه:</label>
                 <select id="dept" required>
                     <option value="" disabled selected>اختر القطاع...</option>
-                    <option value="الشرطة">الشرطة</option>
-                    <option value="الإسعاف">الإسعاف</option>
-                    <option value="الميكانيكا">الميكانيكا</option>
-                    <option value="الإعلام">الإعلام</option>
-                    <option value="العدل">العدل</option>
+                    <option value="الشرطة">جهاز الشرطة</option>
+                    <option value="العدل">وزارة العدل</option>
+                    <option value="الصحة">وزارة الصحة</option>
+                    <option value="الإعلام">قسم الإعلام</option>
                 </select>
             </div>
 
             <div class="input-group">
-                <label>العمر:</label>
-                <input type="number" id="age" required>
+                <label>الخبرات السابقة في الـ RP:</label>
+                <textarea id="exp" rows="4" placeholder="اذكر السيرفرات والرتب السابقة..." required></textarea>
             </div>
 
-            <div class="input-group">
-                <label>الخبرات السابقة:</label>
-                <textarea id="exp" rows="3" placeholder="اذكر السيرفرات السابقة..." required></textarea>
-            </div>
-
-            <button type="submit" id="submitBtn" class="btn">إرسال الطلب</button>
+            <button type="submit" id="submitBtn" class="btn">
+                <span>إرسال الطلب للإدارة</span>
+                <span>🚀</span>
+            </button>
         </form>
     </div>
 
@@ -54,38 +52,43 @@
         document.getElementById('applyForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.innerText = 'جاري الإرسال...';
+            btn.innerHTML = '<span>جاري الإرسال...</span>';
             btn.disabled = true;
 
             const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467925594208731372/PNpBqBVTW1aWE-C_g_usILqXKEpP2wzodUE3lqUjeuAL3Nbzhrq75NhCvNa8Hohgxtdn';
 
             const payload = {
                 embeds: [{
-                    title: "🆕 تقديم جديد للمواطن - Future City",
-                    color: 15158332,
+                    title: "🆕 طلب تقديم جديد - FUTURE CFW",
+                    description: "تم استلام طلب تقديم جديد من الموقع الرسمي.",
+                    color: 55295, // لون لبني نيون
                     fields: [
-                        { name: "👤 الاسم", value: document.getElementById('name').value, inline: true },
+                        { name: "👤 الاسم الحقيقي", value: document.getElementById('name').value, inline: true },
                         { name: "🆔 الـ ID", value: document.getElementById('discord_id').value, inline: true },
                         { name: "🏢 القطاع", value: document.getElementById('dept').value, inline: true },
-                        { name: "🎂 العمر", value: document.getElementById('age').value, inline: true },
                         { name: "📜 الخبرة", value: document.getElementById('exp').value }
                     ],
-                    footer: { text: "نظام التقديم الآلي" },
+                    footer: { text: "Future City Application System" },
                     timestamp: new Date()
                 }]
             };
 
             try {
-                await fetch(WEBHOOK_URL, {
+                const response = await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                alert('✅ تم إرسال تقديمك بنجاح!');
-                window.location.href = 'index.html';
+
+                if (response.ok) {
+                    alert('✅ تم إرسال طلبك بنجاح! انتظر مراجعة الإدارة.');
+                    window.location.href = 'index.html';
+                } else {
+                    throw new Error();
+                }
             } catch (err) {
-                alert('❌ فشل الإرسال');
-                btn.innerText = 'إرسال الطلب';
+                alert('❌ فشل في الإرسال، يرجى المحاولة لاحقاً.');
+                btn.innerHTML = '<span>إرسال الطلب الآن 🚀</span>';
                 btn.disabled = false;
             }
         });
